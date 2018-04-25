@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Pitaya';
+
+  navigation = [
+    { link: 'cases', label: 'Cases' },
+    { link: 'courts', label: 'Courts' },
+    { link: 'contacts', label: 'Contacts' }
+  ];
+
+  sidenav = [
+    { value: 'First Item' },
+    { value: 'Second Item' },
+    { value: 'Third Item' }
+  ];
 }
