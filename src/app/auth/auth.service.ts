@@ -10,7 +10,7 @@ export const TOKEN_NAME: string = 'jwt_token';
 @Injectable()
 export class AuthService {
 
-  private url: string = 'http://localhost:8080/auth/login';
+  private url: string = '/auth/login';
   private headers = new Headers({ 'Content-Type': 'application/json' })
   private options = new RequestOptions( {headers: this.headers });
 
