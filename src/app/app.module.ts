@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import {DataSource} from '@angular/cdk/table';
+
+
+
 import 'hammerjs';
 import {CdkTableModule} from '@angular/cdk/table';
 
@@ -46,6 +50,24 @@ import { AuthService } from './auth/auth.service';
     UserComponent,
     DocumentsComponent
   ],
+   exports: [
+    CdkTableModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -69,6 +91,7 @@ import { AuthService } from './auth/auth.service';
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
+
 
     // Flex-layout
     FlexLayoutModule,

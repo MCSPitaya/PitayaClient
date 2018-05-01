@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import {MatTableDataSource, MatSort} from '@angular/material';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements OnInit {
-  
+
+export class DocumentsComponent {
+
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  documents = ELEMENT_DATA;
 }
+
 
 export interface Element {
   name: string;
