@@ -7,6 +7,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import 'hammerjs';
+import {CdkTableModule} from '@angular/cdk/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,9 @@ import {
   MatSidenavModule,
   MatSlideToggleModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule,
+  MatSortModule
 } from '@angular/material';
 
 import { LoginComponent } from './login/login.component';
@@ -64,6 +67,8 @@ import { AuthService } from './auth/auth.service';
     MatSlideToggleModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTableModule,
+    MatSortModule,
 
     // Flex-layout
     FlexLayoutModule,
