@@ -29,6 +29,8 @@ import {
 
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import { DocumentsComponent } from './documents/documents.component';
+
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -38,7 +40,8 @@ import { AuthService } from './auth/auth.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule,
