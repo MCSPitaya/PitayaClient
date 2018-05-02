@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource, MatSort} from '@angular/material';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-documents',
@@ -8,20 +9,12 @@ import {MatTableDataSource, MatSort} from '@angular/material';
 })
 
 export class DocumentsComponent {
+  
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  documents = ELEMENT_DATA;
-}
-
-
-export interface Element {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: Element[] = [
+  
+  documents = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
@@ -43,3 +36,58 @@ const ELEMENT_DATA: Element[] = [
   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 ];
+  
+  dataSource = new MatTableDataSource(this.documents);
+  selection = new SelectionModel(true, []);
+  
+   applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+  
+  
+    /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  
+  
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  /**
+   * Set the paginator after the view init since this component will
+   * be able to query its view for the initialized paginator.
+   */
+  /**
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+  */
+  
+  
+  
+
+  /**
+   * Set the sort after the view init since this component will
+   * be able to query its view for the initialized sort.
+   */
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+  
+}
+
+
+
+
+

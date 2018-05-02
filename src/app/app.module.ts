@@ -7,6 +7,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import {DataSource} from '@angular/cdk/table';
+import {SelectionModel} from '@angular/cdk/collections';
 
 
 
@@ -31,7 +32,10 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTableModule,
-  MatSortModule
+  MatSortModule,
+  MatPaginatorModule,
+  MatPaginator,
+  
 } from '@angular/material';
 
 import { LoginComponent } from './login/login.component';
