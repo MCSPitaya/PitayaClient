@@ -1,0 +1,6 @@
+Apr 30, 2018 3:50:04 PM com.genuitec.pulse.client.deliverypackage.runtime.internal.Activator initializeLoggers
+INFO: Package starting up at Mon Apr 30 15:50:04 CEST 2018
+Apr 30, 2018 3:50:06 PM com.genuitec.pulse.client.deliverypackage.runtime.UpdatesService checkForWorkspaceUpdates
+INFO: Latest version of package has already been enabled in the workspace; check finished in 4ms
+Apr 30, 2018 3:56:08 PM com.genuitec.pulse.client.deliverypackage.runtime.UpdatesService checkForUpdates
+INFO: Latest version of package is installed; update check finished in 1415ms
