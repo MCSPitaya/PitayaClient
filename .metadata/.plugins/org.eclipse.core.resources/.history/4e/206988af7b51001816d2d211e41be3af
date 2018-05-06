@@ -1,0 +1,18 @@
+<div class ="container">
+	<mat-grid-list cols = "4" rowHeight = "2:1">
+		<mat-grid-tile>
+			<mat-card>
+				<mat-card-title>Case 1</mat-card-title>
+				<mat-card-subtitle>John Doe</mat-card-subtitle>
+				<mat-card-content>This is a case about something!</mat-card-content>
+				<mat-card-footer>25/12/2018</mat-card-footer>
+				<button>Open Case</button>
+				
+			</mat-card>
+			
+		</mat-grid-tile>
+		
+		
+		
+	</mat-grid-list>	
+</div>

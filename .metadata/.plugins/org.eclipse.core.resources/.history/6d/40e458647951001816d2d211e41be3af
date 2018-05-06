@@ -1,0 +1,9 @@
+<div class ="container">
+	<mat-grid-list cols = "2">
+		<mat-grid-title>1</mat-grid-title>
+		<mat-grid-title>1</mat-grid-title>
+		<mat-grid-title>1</mat-grid-title>
+		<mat-grid-title>1</mat-grid-title>
+		<mat-grid-title>1</mat-grid-title>
+	</mat-grid-list>	
+</div>

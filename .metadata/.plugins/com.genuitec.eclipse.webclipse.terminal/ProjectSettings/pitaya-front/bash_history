@@ -3,10 +3,10 @@ npm install
 ng g c cases
 npm install --save @angular/animations
 ng start
-ng serve
 git pull
 git stat
 git status
 git add --all
 git commit -m "first push"
 git push origin master
+ng serve

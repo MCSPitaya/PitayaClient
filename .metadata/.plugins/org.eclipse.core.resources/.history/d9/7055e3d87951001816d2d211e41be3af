@@ -1,0 +1,5 @@
+<div class ="container">
+	<mat-grid-list cols = "2" rowHeight = "2:1">
+
+	</mat-grid-list>	
+</div>
