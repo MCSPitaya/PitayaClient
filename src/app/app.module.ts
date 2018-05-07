@@ -42,7 +42,7 @@ import {
 
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import { DocumentsComponent } from './documents/documents.component';
+import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
 import { CasesComponent } from './cases/cases.component';
 
 
@@ -56,6 +56,7 @@ import { AuthService } from './auth/auth.service';
     LoginComponent,
     UserComponent,
     DocumentsComponent,
+    ModalUploadFile,
     CasesComponent
     
   ],
@@ -115,6 +116,11 @@ import { AuthService } from './auth/auth.service';
     AuthGuard,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
+  entryComponents: [DocumentsComponent, ModalUploadFile],
+  
+  
+  
 })
 export class AppModule { }
