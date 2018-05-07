@@ -1,4 +1,4 @@
-import { HttpResponse } from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -66,15 +66,30 @@ export class AuthService {
         this.setToken(accessToken);
         this.setRefreshToken(refreshToken);
 
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({username: username, token: response}));
-          // return true to indicate successful login
-          return true;
+        // store username and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify({username: username, token: response}));
+        // return true to indicate successful login
+        return true;
       });
   }
 
   refreshTokens() {
-    return this.http.post('/auth/refresh', this.options);
+    return this.http.post('/auth/refresh', this.options).map((response: any) => {
+      // login successful if there's a jwt token in the response
+      let accessToken = response.accessToken;
+      let refreshToken = response.refreshToken;
+
+      this.setToken(accessToken);
+      this.setRefreshToken(refreshToken);
+
+      // store username and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem('currentUser', JSON.stringify({
+        username: JSON.parse(localStorage.getItem('currentUser')).username,
+        token: response
+      }));
+      // return true to indicate successful login
+      return true;
+    });
   }
 
   logout(): void {
