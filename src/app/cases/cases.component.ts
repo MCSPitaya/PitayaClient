@@ -1,9 +1,11 @@
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
 
 
@@ -15,27 +17,23 @@ import * as jwt_decode from 'jwt-decode';
 })
 @Injectable()
 export class CasesComponent implements OnInit {
-  private url: string = '/api/case';
-  private headers = new Headers({ 'Content-Type': 'application/json' })
-  private options = new RequestOptions( {headers: this.headers });
-  constructor(private http: Http) { }
-  
-  
+  private url = '/api/case';
+  private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
+  constructor(private http: HttpClient) { }
+
+  cases: any[] = [];
+
   ngOnInit() {
-    
-    console.log(this.readCases());
-    
+    this.readCases();
   }
-  cases=[];
-  
-  
-  
-  readCases(){
-    console.log("lsjl");
-    return this.http.get("/api/case", this.options).map((response:Response)=>{
-      console.log(response);
-      return response;
-    });
+
+  readCases() {
+    return this.http.get(this.url, this.options)
+   .subscribe(
+      (data: any[]) => this.cases = data,
+     err => console.log(err)
+    );
+
   }
-  
+
 }
