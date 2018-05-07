@@ -1,8 +1,0 @@
-<div class ="container">
-	
-		<mat-card *ngFor = "let case in cases">
-		CASE 1
-		<button type="button">Click Me!</button>
-		</mat-card>
-	
-</div>

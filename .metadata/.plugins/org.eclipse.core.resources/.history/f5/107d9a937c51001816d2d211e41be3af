@@ -1,6 +1,0 @@
-mat-card-footer{
-	text-align:right;
-	font-size: 7pt;
-	color: gray;
-	
-}
