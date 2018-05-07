@@ -92,9 +92,20 @@ export class AuthService {
     });
   }
 
+  fullLogout() {
+    this.http.post('/auth/logout', this.options).subscribe(
+      x => {
+        // ignore response
+      },
+      error => {
+        // ignore errors
+      });
+    this.logout();
+  }
+
   logout(): void {
-    // clear token remove user from local storage to log user out
     this.setToken(null);
+    this.setRefreshToken(null);
     localStorage.removeItem('currentUser');
   }
 }
