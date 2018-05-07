@@ -35,13 +35,15 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatPaginator,
-
+  MatGridListModule,
+  
   
 } from '@angular/material';
 
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { DocumentsComponent } from './documents/documents.component';
+import { CasesComponent } from './cases/cases.component';
 
 
 import { AuthGuard } from './auth/auth.guard';
@@ -53,7 +55,9 @@ import { AuthService } from './auth/auth.service';
     AppComponent,
     LoginComponent,
     UserComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    CasesComponent
+    
   ],
    exports: [
     CdkTableModule,
@@ -72,6 +76,7 @@ import { AuthService } from './auth/auth.service';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatGridListModule,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +101,7 @@ import { AuthService } from './auth/auth.service';
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-
+    MatGridListModule,
 
     // Flex-layout
     FlexLayoutModule,
