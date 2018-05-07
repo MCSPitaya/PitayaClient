@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
@@ -9,6 +9,24 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 
 export class DocumentsComponent {
+  
+  animal: string;
+  name: string;
+  
+  constructor(public dialog: MatDialog) {}
+  
+    openDialog(): void {
+    let dialogRef = this.dialog.open(ModalUploadFile, {
+      width: '450px',
+      data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+  
   
   @ViewChild(MatSort) sort: MatSort;
 
@@ -88,6 +106,22 @@ export class DocumentsComponent {
 }
 
 
+
+@Component({
+  selector: 'app-documents-uploadFile',
+  templateUrl: 'documents.modalUploadFile.html',
+})
+export class ModalUploadFile {
+
+  constructor(
+    public dialogRef: MatDialogRef<ModalUploadFile>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
 
 
 
