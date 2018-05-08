@@ -15,7 +15,7 @@ export const REFRESH_TOKEN_NAME: string = 'refresh_token';
 export class AuthService {
 
   private url: string = '/auth/login';
-  private options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+  //private options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   constructor(private http: HttpClient) {}
 
@@ -56,8 +56,7 @@ export class AuthService {
   login(username: string, password: string): Observable<boolean> {
     return this.http.post(
       this.url,
-      JSON.stringify({user: username, password: password}),
-      this.options)
+      JSON.stringify({user: username, password: password}))
       .map((response: any) => {
         // login successful if there's a jwt token in the response
         let accessToken = response.accessToken;
@@ -74,7 +73,7 @@ export class AuthService {
   }
 
   refreshTokens() {
-    return this.http.post('/auth/refresh', this.options).map((response: any) => {
+    return this.http.post('/auth/refresh', null).map((response: any) => {
       // login successful if there's a jwt token in the response
       let accessToken = response.accessToken;
       let refreshToken = response.refreshToken;
@@ -93,7 +92,7 @@ export class AuthService {
   }
 
   fullLogout() {
-    this.http.post('/auth/logout', this.options).subscribe(
+    this.http.post('/auth/logout', null).subscribe(
       x => {
         // ignore response
       },

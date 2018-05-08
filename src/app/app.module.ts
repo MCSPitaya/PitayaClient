@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -36,8 +35,8 @@ import {
   MatPaginatorModule,
   MatPaginator,
   MatGridListModule,
-  
-  
+
+
 } from '@angular/material';
 
 import { LoginComponent } from './login/login.component';
@@ -49,6 +48,7 @@ import { CasesComponent } from './cases/cases.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { ContentTypeInterceptor } from './shared/contenttype.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -60,7 +60,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     DocumentsComponent,
     ModalUploadFile,
     CasesComponent
-    
+
   ],
    exports: [
     CdkTableModule,
@@ -84,7 +84,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     BrowserAnimationsModule,
     FormsModule,
 
@@ -121,13 +120,18 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ContentTypeInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent],
-  
+
   entryComponents: [DocumentsComponent, ModalUploadFile],
-  
-  
-  
+
+
+
 })
 export class AppModule { }
