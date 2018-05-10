@@ -52,21 +52,39 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    <ng-container matColumnDef="revisions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Revisions </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.revisions}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Creation </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="modified">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last modification </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modified}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="createdBy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created by </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="modifiedBy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Modified by </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modifiedBy}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

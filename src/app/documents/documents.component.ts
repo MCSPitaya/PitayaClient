@@ -1,19 +1,85 @@
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
+import * as jwt_decode from 'jwt-decode';
 import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
+import {ActivatedRoute} from "@angular/router";
+
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-
-export class DocumentsComponent {
+@Injectable()
+export class DocumentsComponent implements OnInit{
+  
   
   animal: string;
   name: string;
+  private idCase = "";
+  private urlAllDocuments = '/api/case';
+  private urlDocument= "";
+  private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
   
-  constructor(public dialog: MatDialog) {}
+    
+  
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private http: HttpClient) {
+    
+    
+    this.route.params.subscribe( params => {this.urlAllDocuments = this.urlAllDocuments + '/' + params['idCase'] + '/files' ;});
+  
+  };
+  
+   
+   
+   documents: any[] = [];
+    
+   documentsDetails: any[] = [];
+  
+    
+     ngOnInit() {
+       this.readDocuments();
+       this.readDocumentsDetails();
+    }
+
+    readDocuments() {
+      console.log(this.urlAllDocuments);
+      return this.http.get(this.urlAllDocuments, this.options)
+     .subscribe(
+        (data: any[]) => this.documents = data,
+       err => console.log(err)
+      );
+  
+    }
+  
+  
+    readDocumentsDetails(){
+      
+      console.log(this.documents);
+      
+      for(var i=0;i<this.documents.length;i++){
+        
+        console.log(this.documents[i]['id']);
+        this.urlDocument= '/api/file' + this.documents[i]['id'];
+        
+        return this.http.get(this.urlDocument, this.options)
+        .subscribe(
+          (data: any[]) => this.documents.push(data),
+          err => console.log(err)
+         );
+      }
+      
+      
+    }
+  
+  
   
     openDialog(): void {
     let dialogRef = this.dialog.open(ModalUploadFile, {
@@ -30,32 +96,11 @@ export class DocumentsComponent {
   
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns = ['position', 'title', 'revisions', 'created', 'modified', 'createdBy', 'modifiedBy'];
   
-  documents = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
+
   
-  dataSource = new MatTableDataSource(this.documents);
+  dataSource = new MatTableDataSource(this.documentsDetails);
   selection = new SelectionModel(true, []);
   
    applyFilter(filterValue: string) {
