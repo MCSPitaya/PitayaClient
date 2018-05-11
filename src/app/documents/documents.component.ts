@@ -34,7 +34,7 @@ export class DocumentsComponent implements OnInit{
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private http: HttpClient) {
     
     
-    this.route.params.subscribe( params => {this.urlAllDocuments = this.urlAllDocuments + '/' + params['idCase'] + '/files' ;});
+    this.route.params.subscribe( params => {this.urlAllDocuments = this.urlAllDocuments + '/' + params['idCase'] + '/files' ; this.idCase=params['idCase']});
   
   };
   
@@ -88,14 +88,7 @@ export class DocumentsComponent implements OnInit{
   
   
   
-    openDialog(): void {
-    let dialogRef = this.dialog.open(ModalUploadFile, {
-      width: '450px',
-      data: {  }
-    });
-
-    
-  }
+   
  
   
  
@@ -103,7 +96,16 @@ export class DocumentsComponent implements OnInit{
     this.dataSource = new MatTableDataSource(this.documentsDetails);
     this.selection = new SelectionModel(true, []);
     this.AfterViewInit();
-  }
+      
+     }
+  
+   openDialog(): void {
+    let dialogRef = this.dialog.open(ModalUploadFile, {
+      width: '450px',
+      data: {idCase: this.idCase}
+    });
+
+    }
  
   @ViewChild(MatSort) sort: MatSort;
 
@@ -166,15 +168,54 @@ export class DocumentsComponent implements OnInit{
   selector: 'app-documents-uploadFile',
   templateUrl: 'documents.modalUploadFile.html',
 })
+@Injectable()
 export class ModalUploadFile {
+  
+  fileToUpload: File = null;
+  urlNewFile="/api/case/";
+  private headers;
+  
+  private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
+  
+ 
+  
+  private idCase;
 
   constructor(
     public dialogRef: MatDialogRef<ModalUploadFile>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
+      this.idCase=data['idCase'];
+      console.log(this.idCase);
+      this.urlNewFile+=this.idCase+"/file";
+  
+   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
+  
+
+fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('file', file, file.name);
+        let headers = new Headers();
+        /** In Angular 5, including the header Content-Type can invalidate your request */
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(`${this.urlNewFile}`, formData, this.options)
+            .map(() => { return true; })
+            .catch(error => Observable.throw(error))
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )
+    }
+}
 
 }
 

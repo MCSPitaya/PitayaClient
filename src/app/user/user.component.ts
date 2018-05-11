@@ -19,8 +19,8 @@ export class UserComponent implements OnInit {
   }
 
   showUserInfo() {
-    this.user = this.userService.getUserInfo()
-      .subscribe((data: User) => this.user = { ...data });
+    //this.user = this.userService.getUserInfo()
+      //.subscribe((data: User) => this.user = { ...data });
   }
 
 }
