@@ -74,13 +74,13 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="createdBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Created by </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdBy.username}} </mat-cell>
     </ng-container>
     
     <!-- Symbol Column -->
     <ng-container matColumnDef="modifiedBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Modified by </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.modifiedBy}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.modifiedBy.username}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
