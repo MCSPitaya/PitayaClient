@@ -21,12 +21,13 @@ import {ActivatedRoute} from "@angular/router";
 export class DocumentsComponent implements OnInit{
   
   
-  animal: string;
-  name: string;
+
   private idCase = "";
   private urlAllDocuments = '/api/case';
   private urlDocument= "";
   private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
+  dataSource: any;
+  selection: any;
   
     
   
@@ -39,43 +40,49 @@ export class DocumentsComponent implements OnInit{
   
    
    
-   documents: any[] = [];
+    private documents: any[] = [];
     
-   documentsDetails: any[] = [];
+    private documentsDetails: any[] = [];
   
     
      ngOnInit() {
        this.readDocuments();
-       this.readDocumentsDetails();
+       
     }
 
     readDocuments() {
-      console.log(this.urlAllDocuments);
+      
       return this.http.get(this.urlAllDocuments, this.options)
      .subscribe(
-        (data: any[]) => this.documents = data,
+        (data: any[]) => {this.documents = data, this.readDocumentsDetails()},
        err => console.log(err)
       );
+      
+      
   
     }
   
   
-    readDocumentsDetails(){
+    readDocumentsDetails(i=0){
       
-      console.log(this.documents);
+     if(i<this.documents.length){
       
-      for(var i=0;i<this.documents.length;i++){
+      console.log(this.documents[i]['id']);
+        this.urlDocument= '/api/file' + '/' + this.documents[i]['id'];
         
-        console.log(this.documents[i]['id']);
-        this.urlDocument= '/api/file' + this.documents[i]['id'];
-        
-        return this.http.get(this.urlDocument, this.options)
+        this.http.get(this.urlDocument, this.options)
         .subscribe(
-          (data: any[]) => this.documents.push(data),
+          (data: any[]) => {this.documentsDetails.push(data),this.readDocumentsDetails(++i)},
           err => console.log(err)
          );
-      }
+     
+     }
+      else{
+       return this.createTable();
+     }
       
+      
+   
       
     }
   
@@ -84,24 +91,27 @@ export class DocumentsComponent implements OnInit{
     openDialog(): void {
     let dialogRef = this.dialog.open(ModalUploadFile, {
       width: '450px',
-      data: { name: this.name, animal: this.animal }
+      data: {  }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
+    
   }
+ 
   
-  
+ 
+  createTable(){
+    this.dataSource = new MatTableDataSource(this.documentsDetails);
+    this.selection = new SelectionModel(true, []);
+    this.AfterViewInit();
+  }
+ 
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['position', 'title', 'revisions', 'created', 'modified', 'createdBy', 'modifiedBy'];
+  displayedColumns = ['name', 'revisions', 'created', 'modified', 'createdBy', 'modifiedBy'];
   
-
+ 
   
-  dataSource = new MatTableDataSource(this.documentsDetails);
-  selection = new SelectionModel(true, []);
+ 
   
    applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -144,7 +154,7 @@ export class DocumentsComponent implements OnInit{
    * Set the sort after the view init since this component will
    * be able to query its view for the initialized sort.
    */
-  ngAfterViewInit() {
+  AfterViewInit() {
     this.dataSource.sort = this.sort;
   }
   
