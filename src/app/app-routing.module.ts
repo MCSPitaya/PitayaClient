@@ -6,7 +6,7 @@ import { DocumentsComponent, ModalUploadFile } from './documents/documents.compo
 import { UserComponent} from './user/user.component';
 import { LoginComponent} from './login/login.component';
 const routes: Routes = [
-  { path: 'users', component: UserComponent, canActivate: [AuthGuard]},
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path : '', component : LoginComponent},
   { path : 'cases', component : CasesComponent},

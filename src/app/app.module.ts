@@ -44,6 +44,7 @@ import { UserComponent } from './user/user.component';
 import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
 import { CasesComponent } from './cases/cases.component';
 
+import { UserService } from './user/user.service';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -116,6 +117,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [
     AuthGuard,
     AuthService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
