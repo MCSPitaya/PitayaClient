@@ -51,6 +51,7 @@ import { AuthService } from './auth/auth.service';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ContentTypeInterceptor } from './shared/contenttype.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     UserComponent,
     DocumentsComponent,
     ModalUploadFile,
-    CasesComponent
+    CasesComponent,
+    ChangePasswordComponent
 
   ],
    exports: [
