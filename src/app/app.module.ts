@@ -52,6 +52,10 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { ContentTypeInterceptor } from './shared/contenttype.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { ListUploadComponent } from './documents/Upload/list-upload/list-upload.component';
+import { DetailsUploadComponent } from './documents/Upload/details-upload/details-upload.component';
+import { FormUploadComponent } from './documents/Upload/form-upload/form-upload.component';
+import { UploadFileService } from './documents/Upload/upload-file.service';
 
 
 @NgModule({
@@ -62,7 +66,10 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
     DocumentsComponent,
     ModalUploadFile,
     CasesComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ListUploadComponent,
+    DetailsUploadComponent,
+    FormUploadComponent
 
   ],
    exports: [
@@ -119,6 +126,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
   providers: [
     AuthGuard,
     AuthService,
+    UploadFileService,
     UserService,
     {
       provide: HTTP_INTERCEPTORS,

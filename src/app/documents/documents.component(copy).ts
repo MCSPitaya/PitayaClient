@@ -11,11 +11,6 @@ import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivatedRoute} from "@angular/router";
 
-import { ListUploadComponent } from './Upload/list-upload/list-upload.component';
-import { FormUploadComponent } from './Upload/form-upload/form-upload.component';
-import { DetailsUploadComponent } from './Upload/details-upload/details-upload.component';
-import { UploadFileService } from './Upload/upload-file.service';
-
 
 @Component({
   selector: 'app-documents',
@@ -223,4 +218,6 @@ fileChange(event) {
 }
 
 }
+
+
 
