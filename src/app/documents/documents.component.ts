@@ -10,11 +10,14 @@ import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivatedRoute} from "@angular/router";
+import 'rxjs/add/operator/toPromise';
+import { saveAs } from 'file-saver/FileSaver';
 
 import { ListUploadComponent } from './Upload/list-upload/list-upload.component';
 import { FormUploadComponent } from './Upload/form-upload/form-upload.component';
 import { DetailsUploadComponent } from './Upload/details-upload/details-upload.component';
 import { UploadFileService } from './Upload/upload-file.service';
+import { DownloadFileComponent } from './download-file/download-file.component';
 
 
 @Component({
@@ -54,6 +57,25 @@ export class DocumentsComponent implements OnInit{
        this.readDocuments();
        
     }
+  
+  
+  saveFile() {
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'text/plain');
+    
+    this.http.get('/api/file/3/content', { headers: headers })
+      .toPromise()
+      .then(response => this.saveToFileSystem(response));
+  }
+
+  private saveToFileSystem(response) {
+    const contentDispositionHeader: string = response.headers.get('Content-Disposition');
+    const parts: string[] = contentDispositionHeader.split(';');
+    const filename = parts[1].split('=')[1];
+    const blob = new Blob([response._body], { type: 'text/plain' });
+    saveAs(blob, filename);
+  }
+  
 
     readDocuments() {
       
@@ -165,7 +187,16 @@ export class DocumentsComponent implements OnInit{
     this.dataSource.sort = this.sort;
   }
   
+  
+  
+  
+  
 }
+
+
+
+
+
 
 
 
