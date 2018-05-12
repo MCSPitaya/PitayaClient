@@ -17,7 +17,7 @@ import { ListUploadComponent } from './Upload/list-upload/list-upload.component'
 import { FormUploadComponent } from './Upload/form-upload/form-upload.component';
 import { DetailsUploadComponent } from './Upload/details-upload/details-upload.component';
 import { UploadFileService } from './Upload/upload-file.service';
-import { DownloadFileComponent } from './download-file/download-file.component';
+
 
 
 @Component({

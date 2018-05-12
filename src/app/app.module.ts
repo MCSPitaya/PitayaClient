@@ -56,7 +56,7 @@ import { ListUploadComponent } from './documents/Upload/list-upload/list-upload.
 import { DetailsUploadComponent } from './documents/Upload/details-upload/details-upload.component';
 import { FormUploadComponent } from './documents/Upload/form-upload/form-upload.component';
 import { UploadFileService } from './documents/Upload/upload-file.service';
-import { DownloadFileComponent } from './documents/download-file/download-file.component';
+
 
 
 @NgModule({
@@ -70,8 +70,8 @@ import { DownloadFileComponent } from './documents/download-file/download-file.c
     ChangePasswordComponent,
     ListUploadComponent,
     DetailsUploadComponent,
-    FormUploadComponent,
-    DownloadFileComponent
+    FormUploadComponent
+    
 
   ],
    exports: [
