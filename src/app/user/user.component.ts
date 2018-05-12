@@ -23,17 +23,14 @@ export class UserComponent implements OnInit {
   }
 
   showUserInfo() {
-<<<<<<< HEAD
-    //this.user = this.userService.getUserInfo()
-      //.subscribe((data: User) => this.user = { ...data });
-=======
+
     this.userService.getUserInfo()
       .subscribe(
         (data: User) => {
           this.user = { ...data };
         }
       );
->>>>>>> dec744bef2739f5c387cd6ad4e6ab37dc3d35d84
+
   }
 
 }
