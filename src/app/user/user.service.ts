@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 
@@ -17,4 +17,6 @@ export class UserService {
   getUserInfo(): Observable<User> {
     return this.http.get<User>(this.userInfoUrl);
   }
+
+
 }
