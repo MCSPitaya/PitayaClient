@@ -42,7 +42,8 @@ import {
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
-import { CasesComponent } from './cases/cases.component';
+import { CasesComponent ,ModalCreateCase} from './cases/cases.component';
+
 
 import { UserService } from './user/user.service';
 
@@ -62,6 +63,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
     DocumentsComponent,
     ModalUploadFile,
     CasesComponent,
+    ModalCreateCase,
     ChangePasswordComponent
 
   ],
@@ -133,7 +135,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
   ],
   bootstrap: [AppComponent],
 
-  entryComponents: [DocumentsComponent, ModalUploadFile],
+  entryComponents: [DocumentsComponent, ModalUploadFile, ModalCreateCase],
 
 
 
