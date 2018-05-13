@@ -68,16 +68,13 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     DocumentsComponent,
     ModalUploadFile,
     CasesComponent,
-<<<<<<< HEAD
     ModalCreateCase,
-    ChangePasswordComponent
-=======
     ChangePasswordComponent,
     ListUploadComponent,
     DetailsUploadComponent,
     FormUploadComponent
     
->>>>>>> origin/master
+
 
   ],
    exports: [
