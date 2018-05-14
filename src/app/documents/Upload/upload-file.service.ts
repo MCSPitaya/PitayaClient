@@ -16,10 +16,10 @@ export class UploadFileService {
     const headers = new HttpHeaders();
         /** In Angular 5, including the header Content-Type can invalidate your request */
         headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
+        //headers.append('Accept', 'application/json');
    
     
-    const req = new HttpRequest('POST', '/api/case/2/file', formdata, {headers: headers}
+    const req = new HttpRequest('POST', '/api/case/2/file', formdata, {headers: headers }
       
     );
 
