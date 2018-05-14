@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import {DataSource} from '@angular/cdk/table';
 import {SelectionModel} from '@angular/cdk/collections';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 
@@ -73,7 +74,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     ListUploadComponent,
     DetailsUploadComponent,
     FormUploadComponent
-    
+
 
 
   ],
@@ -124,6 +125,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     FlexLayoutModule,
 
     NgbModule.forRoot(),
+    FlashMessagesModule.forRoot(),
 
     //Routing
     AppRoutingModule

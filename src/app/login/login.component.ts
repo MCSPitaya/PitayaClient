@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import {AuthService} from '../auth/auth.service';
 
 @Component({

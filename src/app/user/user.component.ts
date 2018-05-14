@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
   }
 
   showUserInfo() {
-
     this.userService.getUserInfo()
       .subscribe(
         (data: User) => {
