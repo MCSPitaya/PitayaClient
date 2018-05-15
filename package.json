@@ -33,6 +33,7 @@
     "jwt-decode": "^2.2.0",
     "latest-version": "^3.1.0",
     "moment": "^2.22.1",
+    "ng": "0.0.0-rc6",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
