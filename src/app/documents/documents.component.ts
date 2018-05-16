@@ -72,6 +72,7 @@ export class DocumentsComponent implements OnInit{
     const contentDispositionHeader: string = response.headers.get('Content-Disposition');
     const parts: string[] = contentDispositionHeader.split(';');
     const filename = parts[1].split('=')[1];
+    console.log(filename);
     const blob = new Blob([response._body], { type: 'jpg' });
     saveAs(blob, filename);
   }
@@ -221,7 +222,6 @@ export class ModalUploadFile {
     public dialogRef: MatDialogRef<ModalUploadFile>,
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
       this.idCase=data['idCase'];
-      console.log(this.idCase);
       this.urlNewFile+=this.idCase+"/file";
   
    }

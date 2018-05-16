@@ -16,7 +16,6 @@ export class ContentTypeInterceptor implements HttpInterceptor {
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(this.exclude.test(request.url)){
-      console.log('Yayy');
       return next.handle(request);
     }
     const req = request.clone({

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { UploadFileService } from '../upload-file.service';
+import { DocumentsComponent } from '../../documents.component';
 
 @Component({
   selector: 'form-upload',
@@ -12,6 +13,7 @@ export class FormUploadComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = { percentage: 0 };
+  @Input() documentsComp : DocumentsComponent;
 
   constructor(private uploadService: UploadFileService) { }
 
@@ -31,6 +33,8 @@ export class FormUploadComponent implements OnInit {
         this.progress.percentage = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
         console.log('File is completely uploaded!');
+        //this.documentsComp.readDocuments();
+        window.location.reload();
       }
     });
 
