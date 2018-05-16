@@ -10,7 +10,7 @@
       <span>Welcome to {{title}}!</span>
       <span class="toolbar-spacer"></span>
       <span class="d-none d-md-inline">
-        <button mat-button class="nav-button" *ngFor="let item of navigation">
+        <button mat-button class="nav-button" *ngFor="let item of navigation" (click) = "navigateTo(item.link)">
           {{item.label}}
         </button>
       </span>

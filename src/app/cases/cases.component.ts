@@ -25,13 +25,15 @@ export class CasesComponent implements OnInit {
   private url = '/api/case';
   private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
   constructor(private http: HttpClient,public dialog: MatDialog) { }
-
+  
+  courts: any[] = [];
   cases: any[] = [];
   casesDet: any[] = [];
 
   ngOnInit() {
-    this.readCases();
     
+    this.readCases();
+    this.readCourts();
     
   }
 
@@ -45,25 +47,32 @@ export class CasesComponent implements OnInit {
   }
 
   readCaseDetail(caseID: any){
-    return this.http.get('api/case' + '/' + caseID, this.options)
+    return this.http.get('/api/case' + '/' + caseID, this.options)
     .subscribe(
        (data: any[]) => this.casesDet = data,
       err => console.log(err)
      );
   }
-
+  readCourts(){
+    return this.http.get('/api/court', this.options)
+    .subscribe(
+       (data: any[]) => this.courts = data,
+      err => console.log(err)
+     );
+  }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(ModalCreateCase, {
       width: '450px',
-      data: {idCase: "Hi"}
+      data: {courts: this.courts}
     });
 
     }
 
     openDialogFileUpload(id: number): void {
       let dialogRef = this.dialog.open(ModalUploadFile, {
-        width: '450px',
+        width: '800px',
+        height: '800px',
         data: {idCase: id}
       });
   
@@ -75,31 +84,35 @@ export class CasesComponent implements OnInit {
 
 @Component({
   selector: 'app-cases-createFile',
-  templateUrl: 'modalCreateCase.html',
+  templateUrl: 'cases.modalCreateCase.html',
 })
 @Injectable()
 export class ModalCreateCase {
   
   fileToUpload: File = null;
-  urlNewFile="/api/case/";
+  urlNewFile="/api/case";
   private headers;
   
   private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
   
+  courtid: number;
+  case_title: string;
+  case_number: number;
+  case_desc: string;
  
   
-  private idCase;
+  private courts;
 
   constructor(
     public dialogRef: MatDialogRef<ModalCreateCase>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
-      this.idCase=data['idCase'];
-      console.log(this.idCase);
-      this.urlNewFile+=this.idCase+"/file";
-  
+    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
+    
+  ) {
+      this.courts=data['courts'];
+    
    }
    uploadCase(){
-
+      console.log(this.case_title);
   }
 
   onNoClick(): void {

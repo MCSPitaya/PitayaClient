@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Create A Case </h1>
+<div mat-dialog-content>
+  
+  
+ <mat-form-field>
+  	
+  <mat-select placeholder="Choose Court">
+    <mat-option *ngFor = "let court of courts"  value={{court.id}}  requried >{{court.name}}</mat-option>
+  </mat-select>
+  
+ </mat-form-field>
+
+ <mat-form-field>
+  	
+    
+    <input matInput placeholder="Case Title"  [(ngModel)] = "case_title" required>
+  
+ </mat-form-field>
+ <mat-form-field>
+  
+    
+    <input matInput placeholder="Case Number" [(ngModel)] = "case_number"  required>
+  
+ </mat-form-field>
+ <mat-form-field >
+  <input matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "case_desc" required>
+  <mat-hint align="start"><strong>Short description of the case</strong> </mat-hint>
+  <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+</mat-form-field>
+</div>
+<div mat-dialog-actions>
+  
+  <button mat-button (click)="uploadCase()"><mat-icon>cloud_upload</mat-icon>Upload</button>
+  
+</div>
