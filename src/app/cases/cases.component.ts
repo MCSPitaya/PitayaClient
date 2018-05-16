@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
 import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ModalUploadFile } from '../documents/documents.component';
 
 
 
@@ -26,9 +27,12 @@ export class CasesComponent implements OnInit {
   constructor(private http: HttpClient,public dialog: MatDialog) { }
 
   cases: any[] = [];
+  casesDet: any[] = [];
 
   ngOnInit() {
     this.readCases();
+    
+    
   }
 
   readCases() {
@@ -37,8 +41,18 @@ export class CasesComponent implements OnInit {
       (data: any[]) => this.cases = data,
      err => console.log(err)
     );
-
+    
   }
+
+  readCaseDetail(caseID: any){
+    return this.http.get('api/case' + '/' + caseID, this.options)
+    .subscribe(
+       (data: any[]) => this.casesDet = data,
+      err => console.log(err)
+     );
+  }
+
+
   openDialog(): void {
     let dialogRef = this.dialog.open(ModalCreateCase, {
       width: '450px',
@@ -46,6 +60,14 @@ export class CasesComponent implements OnInit {
     });
 
     }
+
+    openDialogFileUpload(id: number): void {
+      let dialogRef = this.dialog.open(ModalUploadFile, {
+        width: '450px',
+        data: {idCase: id}
+      });
+  
+      }
 
 }
 
@@ -76,8 +98,11 @@ export class ModalCreateCase {
       this.urlNewFile+=this.idCase+"/file";
   
    }
+   uploadCase(){
+
+  }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    
     }
   }
