@@ -95,10 +95,7 @@ export class ModalCreateCase {
   
   private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
   
-  courtid: number;
-  case_title: string;
-  case_number: number;
-  case_desc: string;
+  model: any = {};
  
   
   private courts;
@@ -112,7 +109,7 @@ export class ModalCreateCase {
     
    }
    uploadCase(){
-      console.log(this.case_title);
+      console.log(this.model.casenumber);
   }
 
   onNoClick(): void {
