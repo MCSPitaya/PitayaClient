@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Create A Case </h1>
 <div mat-dialog-content>
   
-  <form name = "form" (ngSubmit) = "uploadCase()">
+  <form name = "form" (ngSubmit) = "uploadCase()" #caseUploadForm = "ngForm">
   <mat-form-field>
       
     <mat-select placeholder="Choose Court">
@@ -17,12 +17,13 @@
         <input matInput placeholder="Case Number" name = "casenumber" [(ngModel)] = "model.casenumber" #casenumber = "ngModel" required>
   </mat-form-field>
   <mat-form-field >
-      <input matInput #message maxlength="512" placeholder="Case Description" name = "casedesc" [(ngModel)] = "model.casedesc" required>
+      <input matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "model.casedesc" name = "casedesc" required>
       <mat-hint align="start"><strong>Short description of the case</strong> </mat-hint>
       <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
     </mat-form-field>
+    <button mat-button  (click)="uploadCase()"><mat-icon>cloud_upload</mat-icon>Upload</button>
   </form>
-  <button mat-button  (click)="uploadCase()"><mat-icon>cloud_upload</mat-icon>Upload</button>
+  
 </div>
 
   
