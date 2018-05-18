@@ -43,7 +43,7 @@ import {
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
-import { CasesComponent ,ModalCreateCase} from './cases/cases.component';
+import { CasesComponent ,ModalCreateCase,ModalCaseDetails} from './cases/cases.component';
 
 
 import { UserService } from './user/user.service';
@@ -70,6 +70,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     ModalUploadFile,
     CasesComponent,
     ModalCreateCase,
+    ModalCaseDetails,
     ChangePasswordComponent,
     ListUploadComponent,
     DetailsUploadComponent,
@@ -148,7 +149,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
   ],
   bootstrap: [AppComponent],
 
-  entryComponents: [DocumentsComponent, ModalUploadFile, ModalCreateCase],
+  entryComponents: [DocumentsComponent, ModalUploadFile, ModalCreateCase,ModalCaseDetails],
 
 
 

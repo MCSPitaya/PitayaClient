@@ -64,6 +64,7 @@ export class CasesComponent implements OnInit {
   openDialog(): void {
     let dialogRef = this.dialog.open(ModalCreateCase, {
       width: '450px',
+      height: '600px',
       data: {courts: this.courts}
     });
 
@@ -71,13 +72,20 @@ export class CasesComponent implements OnInit {
 
     openDialogFileUpload(id: number): void {
       let dialogRef = this.dialog.open(ModalUploadFile, {
-        width: '800px',
-        height: '800px',
+        width: '450px',
+        
         data: {idCase: id}
       });
   
       }
-
+      openDialogCaseDetails(id : number): void {
+        this.readCaseDetail(id)
+        let dialogRef = this.dialog.open(ModalCaseDetails, {
+          width: '450px',
+          data: {caseDet: this.casesDet}
+        });
+    
+        }
 }
 
 
@@ -109,10 +117,46 @@ export class ModalCreateCase {
     
    }
    uploadCase(){
-      console.log(this.model.casenumber);
+      return this.http.post('/api/case', JSON.stringify((this.model))).subscribe((data: any) => {console.log(data)} , err => console.log(err));
   }
 
   onNoClick(): void {
     
     }
   }
+
+
+
+  @Component({
+    selector: 'app-cases-createFile',
+    templateUrl: 'cases.modalDetailCase.html',
+  })
+  @Injectable()
+  export class ModalCaseDetails {
+    
+    fileToUpload: File = null;
+    urlNewFile="/api/case";
+    private headers;
+    
+    private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
+    
+    model: any = {};
+   
+    
+    caseDet: any[] = [];
+  
+    constructor(
+      public dialogRef: MatDialogRef<ModalCreateCase>,
+      @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
+      
+    ) {
+        this.caseDet=data['caseDet'];
+      
+     }
+    
+  
+    onNoClick(): void {
+      
+      }
+    }
+  

@@ -4,20 +4,20 @@
   <form name = "form" (ngSubmit) = "uploadCase()" #caseUploadForm = "ngForm">
   <mat-form-field>
       
-    <mat-select placeholder="Choose Court">
-      <mat-option *ngFor = "let court of courts"  value={{court.id}}  requried >{{court.name}}</mat-option>
+    <mat-select placeholder="Choose Court" [(ngModel)] = "model.courtId" name = "courtId" >
+      <mat-option *ngFor = "let court of courts"  [value]="court.id"  requried >{{court.name}}</mat-option>
     </mat-select>
     
   </mat-form-field>
 
   <mat-form-field>
-      <input matInput placeholder="Case Title"  name = "casetitle" [(ngModel)] = "model.casetitle" required>
+      <input matInput placeholder="Case Title"  name = "title" [(ngModel)] = "model.title" required>
   </mat-form-field>
   <mat-form-field>  
-        <input matInput placeholder="Case Number" name = "casenumber" [(ngModel)] = "model.casenumber" #casenumber = "ngModel" required>
+        <input matInput placeholder="Case Number" name = "number" [(ngModel)] = "model.number"  required>
   </mat-form-field>
   <mat-form-field >
-      <input matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "model.casedesc" name = "casedesc" required>
+      <input matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "model.description" name = "description" required>
       <mat-hint align="start"><strong>Short description of the case</strong> </mat-hint>
       <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
     </mat-form-field>
