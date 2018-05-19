@@ -6,7 +6,7 @@
       <h1>Your Cases</h1>
     </div>
     <div class="col-2">
-     	<button mat-mini-fab (click)="openDialog()"><mat-icon>add</mat-icon></button></div>
+     	<button mat-mini-fab (click)="openDialog()"><mat-icon>library_add</mat-icon></button></div>
    	</div>
 </div>
 	
@@ -19,8 +19,8 @@
 				<mat-card-footer>created: {{case.created}}<br> modified: {{case.modified}}</mat-card-footer>
 				<mat-card-actions>
 					<button mat-mini-fab (click) = "openDialogCaseDetails(case.id)"><mat-icon>list</mat-icon></button>
-					<button mat-mini-fab (click) = "openDialogFileUpload(case.id)"><mat-icon>attachment</mat-icon></button>
-					<button mat-mini-fab ><mat-icon>home</mat-icon></button>
+					<button mat-mini-fab (click) = "openDialogFileUpload(case.id)"><mat-icon>note_add</mat-icon></button>
+					
 				</mat-card-actions>
 				
 			</mat-card>

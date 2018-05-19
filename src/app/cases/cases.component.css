@@ -3,10 +3,7 @@ mat-card-footer{
 	font-size: 7pt;
 	color: gray;	
 }
-button{
-	background-color: purple;
-	color: white;
-}
+
 mat-card-actions{
 	margin-left: 50px;
 }

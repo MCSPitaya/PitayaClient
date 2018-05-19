@@ -7,9 +7,9 @@ import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/ht
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
-import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA, PageEvent} from '@angular/material';
 import { ModalUploadFile } from '../documents/documents.component';
-
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -40,18 +40,26 @@ export class CasesComponent implements OnInit {
   readCases() {
     return this.http.get(this.url, this.options)
    .subscribe(
-      (data: any[]) => this.cases = data,
+      (data: any[]) => {this.cases = data, this.readCaseDetail() },
      err => console.log(err)
     );
     
   }
 
-  readCaseDetail(caseID: any){
-    return this.http.get('/api/case' + '/' + caseID, this.options)
-    .subscribe(
-       (data: any[]) => this.casesDet = data,
-      err => console.log(err)
-     );
+  readCaseDetail(i=0){
+     if(i<this.cases.length){
+      
+      //console.log(this.cases[i]['id']);
+        
+        
+        this.http.get("/api/case/" + this.cases[i].id, this.options)
+        .subscribe(
+          (data: any[]) => {this.casesDet.push(data),this.readCaseDetail(++i)},
+          err => console.log(err)
+         );
+     
+     }
+
   }
   readCourts(){
     return this.http.get('/api/court', this.options)
@@ -64,7 +72,6 @@ export class CasesComponent implements OnInit {
   openDialog(): void {
     let dialogRef = this.dialog.open(ModalCreateCase, {
       width: '450px',
-      height: '600px',
       data: {courts: this.courts}
     });
 
@@ -79,10 +86,9 @@ export class CasesComponent implements OnInit {
   
       }
       openDialogCaseDetails(id : number): void {
-        this.readCaseDetail(id)
         let dialogRef = this.dialog.open(ModalCaseDetails, {
           width: '450px',
-          data: {caseDet: this.casesDet}
+          data: {caseDet: this.casesDet.find((a) => a.id === id)}
         });
     
         }
@@ -97,7 +103,6 @@ export class CasesComponent implements OnInit {
 @Injectable()
 export class ModalCreateCase {
   
-  fileToUpload: File = null;
   urlNewFile="/api/case";
   private headers;
   
@@ -110,6 +115,7 @@ export class ModalCreateCase {
 
   constructor(
     public dialogRef: MatDialogRef<ModalCreateCase>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
     
   ) {
@@ -117,9 +123,14 @@ export class ModalCreateCase {
     
    }
    uploadCase(){
-      return this.http.post('/api/case', JSON.stringify((this.model))).subscribe((data: any) => {console.log(data)} , err => console.log(err));
+      this.http.post('/api/case', JSON.stringify((this.model))).subscribe((data: any) => {console.log(data)} , err => console.log(err));
+      this.dialogRef.close();
+      this.refreshPage();
+      
   }
-
+  refreshPage(){
+    this.router.navigate(['/cases'])
+  }
   onNoClick(): void {
     
     }
@@ -134,18 +145,18 @@ export class ModalCreateCase {
   @Injectable()
   export class ModalCaseDetails {
     
-    fileToUpload: File = null;
+    
     urlNewFile="/api/case";
     private headers;
     
     private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
     
-    model: any = {};
+   
    
     
-    caseDet: any[] = [];
-  
+    public caseDet;
     constructor(
+      private router : Router , 
       public dialogRef: MatDialogRef<ModalCreateCase>,
       @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
       
@@ -154,7 +165,10 @@ export class ModalCreateCase {
       
      }
     
-  
+    navigateToDocumentsPage(){
+      this.router.navigate(['/documents'+ '/' + this.caseDet.id]);
+      this.dialogRef.close();
+    }
     onNoClick(): void {
       
       }
