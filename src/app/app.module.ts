@@ -36,6 +36,8 @@ import {
   MatPaginatorModule,
   MatPaginator,
   MatGridListModule,
+  MatAutocompleteModule,
+  MatTooltipModule
 
 
 } from '@angular/material';
@@ -97,6 +99,8 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     MatTabsModule,
     MatToolbarModule,
     MatGridListModule,
+    MatAutocompleteModule,
+    MatTooltipModule
   ],
   imports: [
     BrowserModule,
@@ -121,6 +125,8 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     MatTableModule,
     MatSortModule,
     MatGridListModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
 
     // Flex-layout
     FlexLayoutModule,
