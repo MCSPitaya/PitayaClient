@@ -10,7 +10,7 @@
    	</div>
 </div>
 	
-	<mat-grid-list cols = "4" >
+	<mat-grid-list [cols]="breakpoint" (window:resize)= "$onResize ($event)" >
 		<mat-grid-tile *ngFor = "let case of cases">
 			<mat-card>
 				<mat-card-title>{{case.title}} {{case.id}}</mat-card-title>

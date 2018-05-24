@@ -29,11 +29,12 @@ export class CasesComponent implements OnInit {
   courts: any[] = [];
   cases: any[] = [];
   casesDet: any[] = [];
-
+  breakpoint: number;
   ngOnInit() {
     
     this.readCases();
     this.readCourts();
+    this.breakpoint = (window.innerWidth <= 450) ? 1 : (window.innerWidth <= 800) ? 2 : (window.innerWidth <= 1000) ? 3 : 4;
     
   }
 
