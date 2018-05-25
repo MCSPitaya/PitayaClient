@@ -41,8 +41,4 @@ export class ModalCreateCase {
   refreshPage(){
     this.router.navigate(['/cases'])
   }
-  onNoClick(): void {
-
-    }
-
 }

@@ -1,8 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
@@ -17,6 +16,7 @@ import { ListUploadComponent } from './Upload/list-upload/list-upload.component'
 import { FormUploadComponent } from './Upload/form-upload/form-upload.component';
 import { DetailsUploadComponent } from './Upload/details-upload/details-upload.component';
 import { UploadFileService } from './Upload/upload-file.service';
+import { DocumentService } from './documents.service';
 
 
 
@@ -27,106 +27,63 @@ import { UploadFileService } from './Upload/upload-file.service';
 })
 @Injectable()
 export class DocumentsComponent implements OnInit{
-  
-  
 
   private idCase = "";
   private urlAllDocuments = '/api/case';
-  private urlDocument= "";
-  private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
+
   dataSource: any;
   selection: any;
-  
-    
-  
-  constructor(public dialog: MatDialog, private route: ActivatedRoute, private http: HttpClient) {
-    
-    
+
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private documentService: DocumentService)
+  {
     this.route.params.subscribe( params => {this.urlAllDocuments = this.urlAllDocuments + '/' + params['idCase'] + '/files' ; this.idCase=params['idCase']});
-  
   };
-  
-   
-   
-    private documents: any[] = [];
-    
+
+
+    private documents: Document[] = [];
     private documentsDetails: any[] = [];
-  
-    
+
      ngOnInit() {
        this.readDocuments();
-       
     }
-  
-  
+
+
   saveFile() {
-    const headers = new HttpHeaders();
-    headers.append('Accept', '*/*');
-    
-    this.http.get('/api/file/1/content', { headers: headers })
-      .toPromise()
-      .then(response => this.saveToFileSystem(response));
+    this.documentService.saveFile();
   }
 
-  private saveToFileSystem(response) {
-    const contentDispositionHeader: string = response.headers.get('Content-Disposition');
-    const parts: string[] = contentDispositionHeader.split(';');
-    const filename = parts[1].split('=')[1];
-    console.log(filename);
-    const blob = new Blob([response._body], { type: 'jpg' });
-    saveAs(blob, filename);
-  }
-  
-
-    readDocuments() {
-      
-      return this.http.get(this.urlAllDocuments, this.options)
+  readDocuments() {
+    this.documentService.readDocuments(this.idCase)
      .subscribe(
-        (data: any[]) => {this.documents = data, this.readDocumentsDetails()},
+        (data: any[]) => { this.documents = data, this.createTable() },
        err => console.log(err)
       );
-      
-      
-  
-    }
-  
-  
-    readDocumentsDetails(i=0){
-      
-     if(i<this.documents.length){
-      
-      console.log(this.documents[i]['id']);
-        this.urlDocument= '/api/file' + '/' + this.documents[i]['id'];
-        
-        this.http.get(this.urlDocument, this.options)
-        .subscribe(
-          (data: any[]) => {this.documentsDetails.push(data),this.readDocumentsDetails(++i)},
-          err => console.log(err)
-         );
-     
-     }
-      else{
-       return this.createTable();
-     }
-      
-      
-   
-      
-    }
-  
-  
-  
-   
- 
-  
- 
+  }
+
+
+  readDocumentsDetails(i=0){
+   if(i<this.documents.length){
+    console.log(this.documents[i]['id']);
+      this.documentService.readDocumentsDetails(i)
+      .subscribe(
+        (data: any) => {this.documentsDetails.push(data),this.readDocumentsDetails(++i)},
+        err => console.log(err)
+       );
+   }
+    else{
+     return this.createTable();
+   }
+  }
+
   createTable(){
-    this.dataSource = new MatTableDataSource(this.documentsDetails);
+    this.dataSource = new MatTableDataSource(this.documents);
     this.selection = new SelectionModel(true, []);
     this.AfterViewInit();
-      
-     }
-  
+  }
+
    openDialog(): void {
     let dialogRef = this.dialog.open(ModalUploadFile, {
       width: '450px',
@@ -134,22 +91,18 @@ export class DocumentsComponent implements OnInit{
     });
 
     }
- 
+
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['name', 'revisions', 'created', 'modified', 'createdBy', 'modifiedBy'];
-  
- 
-  
- 
-  
+  displayedColumns = ['name', 'revisions', 'creDat', 'modDat'];
+
    applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  
-  
+
+
     /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -163,8 +116,8 @@ export class DocumentsComponent implements OnInit{
         this.selection.clear() :
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
-  
-  
+
+
   // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   /**
@@ -176,9 +129,9 @@ export class DocumentsComponent implements OnInit{
     this.dataSource.paginator = this.paginator;
   }
   */
-  
-  
-  
+
+
+
 
   /**
    * Set the sort after the view init since this component will
@@ -187,11 +140,11 @@ export class DocumentsComponent implements OnInit{
   AfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-  
-  
-  
-  
-  
+
+
+
+
+
 }
 
 
@@ -207,15 +160,15 @@ export class DocumentsComponent implements OnInit{
 })
 @Injectable()
 export class ModalUploadFile {
-  
+
   fileToUpload: File = null;
   urlNewFile="/api/case/";
   private headers;
-  
+
   private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
-  
- 
-  
+
+
+
   private idCase;
 
   constructor(
@@ -223,14 +176,14 @@ export class ModalUploadFile {
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
       this.idCase=data['idCase'];
       this.urlNewFile+=this.idCase+"/file";
-  
+
    }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-  
-  
+
+
 
 fileChange(event) {
     let fileList: FileList = event.target.files;
@@ -254,4 +207,3 @@ fileChange(event) {
 }
 
 }
-

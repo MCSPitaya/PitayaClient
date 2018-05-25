@@ -13,7 +13,7 @@
    	</div>
 </div>
 
- 
+
 
 
   <div class="example-header">
@@ -44,8 +44,8 @@
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-	
-   
+
+
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -60,37 +60,26 @@
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="created">
+    <ng-container matColumnDef="creDat">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Creation </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.creDat | date:'medium'}} </mat-cell>
     </ng-container>
-    
+
     <!-- Symbol Column -->
-    <ng-container matColumnDef="modified">
+    <ng-container matColumnDef="modDat">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Last modification </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.modified}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.modDat | date:'medium'}} </mat-cell>
     </ng-container>
-    
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="createdBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Created by </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.createdBy.username}} </mat-cell>
-    </ng-container>
-    
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="modifiedBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Modified by </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.modifiedBy.username}} </mat-cell>
-    </ng-container>
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
              (click)="selection.toggle(row)">
     </mat-row>
-    
-	  
+
+
   </mat-table>
-  
+
   <!---
    <mat-paginator #paginator
                  [pageSize]="10"
@@ -98,7 +87,6 @@
                  [showFirstLastButtons]="true">
   </mat-paginator>
   --->
-  
+
 <button (click)="saveFile()">Export</button>
 </div>
-

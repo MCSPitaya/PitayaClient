@@ -50,6 +50,7 @@ import { CasesComponent} from './cases/cases.component';
 
 import { UserService } from './user/user.service';
 import { CaseService } from './cases/case.service';
+import { DocumentService } from './documents/documents.service';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -146,6 +147,7 @@ import { ModalCaseDetails } from './cases/dialog-case/modal-case-details.compone
     UploadFileService,
     UserService,
     CaseService,
+    DocumentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
