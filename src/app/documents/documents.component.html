@@ -1,42 +1,42 @@
-<div class="example-container mat-elevation-z8">
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10">
-        <h1>The case's documents</h1>
-      </div>
-      <div class="col-2">
-        <button mat-fab (click)="openDialog()">+</button></div>
-      </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10">
+      <h1>The case's documents</h1>
     </div>
-    <div class="example-header">
+    <div class="col-2">
+      <button mat-fab (click)="openDialog()">+</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
+  </div>
+</div>
 
 
-    <mat-table #table [dataSource]="dataSource" matSort>
-
-      <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-        (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)">
+<mat-table #table [dataSource]="dataSource" matSort>
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+      [checked]="selection.hasValue() && isAllSelected()"
+      [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+      (change)="$event ? selection.toggle(row) : null"
+      [checked]="selection.isSelected(row)">
       </mat-checkbox>
     </mat-cell>
   </ng-container>
 
 
-  <!--- Note that these columns can be defined in any order.
-  The actual rendered columns are set as a property on the row definition" -->
+<!--- Note that these columns can be defined in any order.
+The actual rendered columns are set as a property on the row definition" -->
 
 
 
@@ -68,18 +68,12 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"
   (click)="selection.toggle(row)">
-</mat-row>
-
-
+  </mat-row>
 </mat-table>
-
-<!---
-<mat-paginator #paginator
-[pageSize]="10"
-[pageSizeOptions]="[5, 10, 20]"
-[showFirstLastButtons]="true">
-</mat-paginator>
---->
-
-<button (click)="saveFile()">Export</button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10">
+      <button (click)="saveFile()">Export</button>
+    </div>
+  </div>
 </div>

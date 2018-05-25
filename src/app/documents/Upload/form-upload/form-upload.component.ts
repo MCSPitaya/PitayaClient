@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { UploadFileService } from '../upload-file.service';
 import { DocumentsComponent } from '../../documents.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'form-upload',
@@ -16,7 +17,7 @@ export class FormUploadComponent implements OnInit {
   @Input() documentsComp : DocumentsComponent;
   @Input() case_id: number;
 
-  constructor(private uploadService: UploadFileService) { }
+  constructor(private uploadService: UploadFileService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -35,6 +36,7 @@ export class FormUploadComponent implements OnInit {
       } else if (event instanceof HttpResponse) {
         console.log('File is completely uploaded!');
         //this.documentsComp.readDocuments();
+        this.router.navigate(["/documents/" + this.case_id]);
         window.location.reload();
       }
     });

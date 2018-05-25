@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
 import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA, PageEvent} from '@angular/material';
-import { ModalUploadFile } from '../documents/documents.component';
-import {Router} from '@angular/router';
+import { ModalUploadFile } from '../documents/Upload/modal-upload/modal-upload.component';
+import { Router } from '@angular/router';
 import { CaseService } from './case.service'
 import { Case } from '../models/case';
 import { CaseDetails } from '../models/caseDetails';
