@@ -7,7 +7,7 @@ import { ModalCreateCase } from '../create-case/modal-create-case.component';
 @Component({
   selector: 'app-cases-modalDetails',
   templateUrl: 'cases.modalDetailCase.html',
-  styleUrls: []
+  styleUrls: [ 'modal-case-details.component.css']
 })
 @Injectable()
 export class ModalCaseDetails {

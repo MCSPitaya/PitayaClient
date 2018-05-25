@@ -1,29 +1,23 @@
 <h1 mat-dialog-title>Case Details</h1>
 <div mat-dialog-content>
-  
   <form name = "form" #caseUploadForm = "ngForm">
     <mat-form-field>
-      <input matInput placeholder="Case Number"  [value] = "caseDet.number" disabled="true" required> 
+      <input matInput placeholder="Case Number"  [value] = "caseDet.number" disabled="true" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Case Title"  [value] = "caseDet.title" disabled="true" required> 
+      <input matInput placeholder="Case Title"  [value] = "caseDet.title" disabled="true" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Description"  [value] = "caseDet.description" disabled="true" required> 
+      <input matInput placeholder="Description"  [value] = "caseDet.description" disabled="true" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Created On"  [value] = "caseDet.created" disabled="true" required> 
+      <input matInput placeholder="Created On"  [value] = "caseDet.created | date:'medium'" disabled="true" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Last Modified"  [value] = "caseDet.modified" disabled="true" required> 
+      <input matInput placeholder="Last Modified"  [value] = "caseDet.modified | date:'medium'" disabled="true" required>
     </mat-form-field>
-   
   </form>
-  <button mat-mini-fab (click) = "navigateToDocumentsPage()"><mat-icon>insert_drive_file</mat-icon></button>
 </div>
 <div mat-dialog-actions>
-  
-
-  
-  
+  <button mat-mini-fab (click) = "navigateToDocumentsPage()"><mat-icon>insert_drive_file</mat-icon></button>
 </div>

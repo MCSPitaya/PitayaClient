@@ -71,6 +71,7 @@ export class CasesComponent implements OnInit {
   openDialog(): void {
     let dialogRef = this.dialog.open(ModalCreateCase, {
       width: '450px',
+      height: 'auto',
       data: {courts: this.courts}
     });
 
@@ -79,7 +80,6 @@ export class CasesComponent implements OnInit {
   openDialogFileUpload(id: number): void {
     let dialogRef = this.dialog.open(ModalUploadFile, {
       width: '450px',
-
       data: {idCase: id}
      });
 
@@ -87,6 +87,7 @@ export class CasesComponent implements OnInit {
   openDialogCaseDetails(id : number): void {
     let dialogRef = this.dialog.open(ModalCaseDetails, {
       width: '450px',
+      height: 'auto',
       data: {caseDet: this.casesDet.find((a) => a.id === id)}
       });
 

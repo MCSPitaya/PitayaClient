@@ -1,32 +1,27 @@
 <h1 mat-dialog-title>Create A Case </h1>
 <div mat-dialog-content>
-  
+
   <form name = "form" (ngSubmit) = "f.form.validate && uploadCase()" #f = "ngForm">
   <mat-form-field>
-      
     <mat-select placeholder="Choose Court" [(ngModel)] = "model.courtId" name = "courtId" >
       <mat-option *ngFor = "let court of courts"  [value]="court.id"  requried >{{court.name}}</mat-option>
     </mat-select>
-    
   </mat-form-field>
 
   <mat-form-field>
       <input matInput placeholder="Case Title"  name = "title" [(ngModel)] = "model.title" required>
   </mat-form-field>
-  <mat-form-field>  
+  <mat-form-field>
         <input matInput placeholder="Case Number" name = "number" [(ngModel)] = "model.number"  required>
   </mat-form-field>
   <mat-form-field >
-      <input matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "model.description" name = "description" required>
-      <mat-hint align="start"><strong>Short description of the case</strong> </mat-hint>
-      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      <textarea matInput #message maxlength="512" placeholder="Case Description"  [(ngModel)] = "model.description" name = "description" required>
+        <mat-hint align="start"><strong>Short description of the case</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      </textarea>
     </mat-form-field>
-    <button mat-raised-button > <mat-icon>cloud_upload</mat-icon>Upload </button>
   </form>
- 
 </div>
-
-  
- 
-  
-
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="uploadCase()" > <mat-icon>cloud_upload</mat-icon> Create</button>
+</div>
