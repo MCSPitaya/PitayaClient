@@ -17,6 +17,7 @@ import { FormUploadComponent } from './Upload/form-upload/form-upload.component'
 import { DetailsUploadComponent } from './Upload/details-upload/details-upload.component';
 import { UploadFileService } from './Upload/upload-file.service';
 import { DocumentService } from './documents.service';
+import { ModalUploadFile } from './Upload/modal-upload/modal-upload.component';
 
 
 
@@ -128,10 +129,7 @@ export class DocumentsComponent implements OnInit{
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  */
-
-
-
+  **/
 
   /**
    * Set the sort after the view init since this component will
@@ -140,70 +138,4 @@ export class DocumentsComponent implements OnInit{
   AfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-@Component({
-  selector: 'app-documents-uploadFile',
-  templateUrl: 'documents.modalUploadFile.html',
-})
-@Injectable()
-export class ModalUploadFile {
-
-  fileToUpload: File = null;
-  urlNewFile="/api/case/";
-  private headers;
-
-  private options = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data' } )};
-
-
-
-  private idCase;
-
-  constructor(
-    public dialogRef: MatDialogRef<ModalUploadFile>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
-      this.idCase=data['idCase'];
-      this.urlNewFile+=this.idCase+"/file";
-
-   }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-
-
-fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData:FormData = new FormData();
-        formData.append('file', file, file.name);
-        let headers = new Headers();
-        /** In Angular 5, including the header Content-Type can invalidate your request */
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
-        let options = new RequestOptions({ headers: headers });
-        this.http.post(`${this.urlNewFile}`, formData, this.options)
-            .map(() => { return true; })
-            .catch(error => Observable.throw(error))
-            .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            )
-    }
-}
-
 }

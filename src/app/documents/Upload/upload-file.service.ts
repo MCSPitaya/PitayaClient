@@ -7,22 +7,18 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UploadFileService {
 
+  private urlNewFile: string = "/api/case/";
+
   constructor(private http: HttpClient) { }
 
-  pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
+  uploadFile(file: File, case_id: number): Observable<HttpEvent<{}>> {
     let formdata: FormData = new FormData();
-
     formdata.append('file', file);
     const headers = new HttpHeaders();
-        /** In Angular 5, including the header Content-Type can invalidate your request */
-        headers.append('Content-Type', 'multipart/form-data');
-        //headers.append('Accept', 'application/json');
-   
-    
-    const req = new HttpRequest('POST', '/api/case/2/file', formdata, {headers: headers }
-      
-    );
+    /** In Angular 5, including the header Content-Type can invalidate your request */
+    headers.append('Content-Type', 'multipart/form-data');
 
+    const req = new HttpRequest('POST', this.urlNewFile + case_id +"/file", formdata, { headers: headers });
     return this.http.request(req);
   }
 
@@ -30,7 +26,3 @@ export class UploadFileService {
     return this.http.get('/getallfiles');
   }
 }
-
-
-//reportProgress: true,
-      //responseType: 'text'

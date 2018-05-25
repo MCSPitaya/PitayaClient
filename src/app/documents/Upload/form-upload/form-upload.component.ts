@@ -14,6 +14,7 @@ export class FormUploadComponent implements OnInit {
   currentFileUpload: File;
   progress: { percentage: number } = { percentage: 0 };
   @Input() documentsComp : DocumentsComponent;
+  @Input() case_id: number;
 
   constructor(private uploadService: UploadFileService) { }
 
@@ -26,9 +27,9 @@ export class FormUploadComponent implements OnInit {
 
   upload() {
     this.progress.percentage = 0;
-
     this.currentFileUpload = this.selectedFiles.item(0);
-    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+    this.uploadService.uploadFile(this.currentFileUpload, this.case_id)
+    .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress.percentage = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {

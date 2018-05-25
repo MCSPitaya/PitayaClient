@@ -1,92 +1,85 @@
-
-
-
 <div class="example-container mat-elevation-z8">
 
- <div class="container-fluid">
-  <div class="row">
-    <div class="col-10">
-      <h1>The case's documents</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-10">
+        <h1>The case's documents</h1>
+      </div>
+      <div class="col-2">
+        <button mat-fab (click)="openDialog()">+</button></div>
+      </div>
     </div>
-    <div class="col-2">
-      <button mat-fab (click)="openDialog()">+</button></div>
-   	</div>
-</div>
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
 
 
+    <mat-table #table [dataSource]="dataSource" matSort>
 
-
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
-
-
-  <mat-table #table [dataSource]="dataSource" matSort>
-
-	 <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </mat-cell>
-    </ng-container>
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
 
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+  <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
 
 
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="revisions">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Revisions </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.revisions}} </mat-cell>
-    </ng-container>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="revisions">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Revisions </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.revisions}} </mat-cell>
+  </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="creDat">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Creation </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.creDat | date:'medium'}} </mat-cell>
-    </ng-container>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="creDat">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Creation </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.creDat | date:'medium'}} </mat-cell>
+  </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="modDat">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Last modification </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.modDat | date:'medium'}} </mat-cell>
-    </ng-container>
-
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
-             (click)="selection.toggle(row)">
-    </mat-row>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="modDat">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Last modification </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.modDat | date:'medium'}} </mat-cell>
+  </ng-container>
 
 
-  </mat-table>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"
+  (click)="selection.toggle(row)">
+</mat-row>
 
-  <!---
-   <mat-paginator #paginator
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 [showFirstLastButtons]="true">
-  </mat-paginator>
-  --->
+
+</mat-table>
+
+<!---
+<mat-paginator #paginator
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 20]"
+[showFirstLastButtons]="true">
+</mat-paginator>
+--->
 
 <button (click)="saveFile()">Export</button>
 </div>

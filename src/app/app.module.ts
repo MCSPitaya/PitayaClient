@@ -44,8 +44,9 @@ import {
 
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
+import { DocumentsComponent } from './documents/documents.component';
 import { CasesComponent} from './cases/cases.component';
+import { ModalUploadFile } from './documents/Upload/modal-upload/modal-upload.component';
 
 
 import { UserService } from './user/user.service';
