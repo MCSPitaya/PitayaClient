@@ -11,7 +11,7 @@
 </div>
 	
 	<mat-grid-list [cols]="breakpoint" (window:resize)= "$onResize ($event)" >
-		<mat-grid-tile *ngFor = "let case of cases">
+		<mat-grid-tile *ngFor = "let case of cases" (dblclick) = "navigateTo(case.id)">
 			<mat-card>
 				<mat-card-title>{{case.title}} {{case.id}}</mat-card-title>
 				<mat-card-subtitle>{{case.number}}</mat-card-subtitle>

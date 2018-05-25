@@ -24,7 +24,10 @@ import {Router} from '@angular/router';
 export class CasesComponent implements OnInit {
   private url = '/api/case';
   private options = { headers : new HttpHeaders({ 'Content-Type': 'application/json' })};
-  constructor(private http: HttpClient,public dialog: MatDialog) { }
+  constructor(private http: HttpClient,
+              public dialog: MatDialog,
+              public router: Router) 
+    { }
   
   courts: any[] = [];
   cases: any[] = [];
@@ -76,23 +79,27 @@ export class CasesComponent implements OnInit {
       data: {courts: this.courts}
     });
 
-    }
+  }
 
-    openDialogFileUpload(id: number): void {
-      let dialogRef = this.dialog.open(ModalUploadFile, {
-        width: '450px',
+  openDialogFileUpload(id: number): void {
+    let dialogRef = this.dialog.open(ModalUploadFile, {
+      width: '450px',
         
-        data: {idCase: id}
-      });
+      data: {idCase: id}
+     });
   
-      }
-      openDialogCaseDetails(id : number): void {
-        let dialogRef = this.dialog.open(ModalCaseDetails, {
-          width: '450px',
-          data: {caseDet: this.casesDet.find((a) => a.id === id)}
-        });
+  }
+  openDialogCaseDetails(id : number): void {
+    let dialogRef = this.dialog.open(ModalCaseDetails, {
+      width: '450px',
+      data: {caseDet: this.casesDet.find((a) => a.id === id)}
+      });
     
-        }
+  }
+  navigateTo(newURL: string){
+    this.router.navigate(["/documents/" + newURL]);
+  }
+
 }
 
 
@@ -100,6 +107,7 @@ export class CasesComponent implements OnInit {
 @Component({
   selector: 'app-cases-createFile',
   templateUrl: 'cases.modalCreateCase.html',
+  styleUrls: ['./cases.component.css']
 })
 @Injectable()
 export class ModalCreateCase {
@@ -142,6 +150,7 @@ export class ModalCreateCase {
   @Component({
     selector: 'app-cases-createFile',
     templateUrl: 'cases.modalDetailCase.html',
+    styleUrls: ['./cases.component.css']
   })
   @Injectable()
   export class ModalCaseDetails {
@@ -172,6 +181,7 @@ export class ModalCreateCase {
     }
     onNoClick(): void {
       
-      }
     }
+
+  }
   
