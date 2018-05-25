@@ -45,10 +45,11 @@ import {
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { DocumentsComponent, ModalUploadFile } from './documents/documents.component';
-import { CasesComponent ,ModalCreateCase,ModalCaseDetails} from './cases/cases.component';
+import { CasesComponent} from './cases/cases.component';
 
 
 import { UserService } from './user/user.service';
+import { CaseService } from './cases/case.service';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -60,6 +61,8 @@ import { ListUploadComponent } from './documents/Upload/list-upload/list-upload.
 import { DetailsUploadComponent } from './documents/Upload/details-upload/details-upload.component';
 import { FormUploadComponent } from './documents/Upload/form-upload/form-upload.component';
 import { UploadFileService } from './documents/Upload/upload-file.service';
+import { ModalCreateCase } from './cases/create-case/modal-create-case.component';
+import { ModalCaseDetails } from './cases/dialog-case/modal-case-details.component';
 
 
 
@@ -142,6 +145,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
     AuthService,
     UploadFileService,
     UserService,
+    CaseService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -155,7 +159,7 @@ import { UploadFileService } from './documents/Upload/upload-file.service';
   ],
   bootstrap: [AppComponent],
 
-  entryComponents: [DocumentsComponent, ModalUploadFile, ModalCreateCase,ModalCaseDetails],
+  entryComponents: [DocumentsComponent, ModalUploadFile, ModalCreateCase, ModalCaseDetails],
 
 
 

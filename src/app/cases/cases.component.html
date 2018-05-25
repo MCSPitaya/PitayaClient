@@ -1,5 +1,5 @@
 <div class ="container">
-	
+
 	 <div class="container-fluid">
   <div class="row">
     <div class="col-10">
@@ -9,29 +9,30 @@
      	<button mat-mini-fab (click)="openDialog()"><mat-icon>create_new_folder</mat-icon></button></div>
    	</div>
 </div>
-	
+
 	<mat-grid-list [cols]="breakpoint" (window:resize)= "$onResize ($event)" >
 		<mat-grid-tile *ngFor = "let case of cases" (dblclick) = "navigateTo(case.id)">
 			<mat-card>
-				<mat-card-title>{{case.title}} {{case.id}}</mat-card-title>
-				<mat-card-subtitle>{{case.number}}</mat-card-subtitle>
-				<mat-card-content>This is a case about something!</mat-card-content>
-				<mat-card-footer>created: {{case.created}}<br> modified: {{case.modified}}</mat-card-footer>
+				<mat-card-title>{{case.title}}</mat-card-title>
+				<mat-card-subtitle>{{case.caseNumber}}</mat-card-subtitle>
+				<mat-card-footer>
+					created: {{case.cre_dat | date}}<br>
+					modified: {{case.mod_dat | date}}</mat-card-footer>
 				<mat-card-actions>
 					<button mat-mini-fab matTooltip = "View Case Details" matTooltipShowDelay="200" (click) = "openDialogCaseDetails(case.id)"><mat-icon>list</mat-icon></button>
 					<button mat-mini-fab matTooltip = "Add a new file" matTooltipShowDelay="200" (click) = "openDialogFileUpload(case.id)"><mat-icon>note_add</mat-icon></button>
-					
+
 				</mat-card-actions>
-				
+
 			</mat-card>
-			
+
 		</mat-grid-tile>
-		
-	
-		
-		
-		
-	</mat-grid-list>	
+
+
+
+
+
+	</mat-grid-list>
 
 
 </div>

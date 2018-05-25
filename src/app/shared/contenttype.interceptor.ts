@@ -11,9 +11,9 @@ import {Observable} from 'rxjs/Observable';
 export class ContentTypeInterceptor implements HttpInterceptor {
 
   constructor() {}
-  
+
   exclude = /^\/api\/case\/[0-9]+\/file/;
-  
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(this.exclude.test(request.url)){
       return next.handle(request);
@@ -22,7 +22,7 @@ export class ContentTypeInterceptor implements HttpInterceptor {
       headers: request.headers.set('Content-Type', 'application/json')
     })
 
-    console.log(request);
+    //console.log(request);
     return next.handle(req);
   }
 }
