@@ -22,10 +22,10 @@ export class DocumentService {
 
     saveFile() {
       const headers = { 'Accept': '*/*'}
-
-      this.http.get('/api/file/1/content', { headers: headers })
-        .toPromise()
-        .then(response => this.saveToFileSystem(response));
+      this.http.get('/api/file/1/content', { headers: headers, observe: 'response', responseType: 'blob' })
+        .subscribe(resp => {
+          this.saveToFileSystem(resp);
+        });
     }
 
     private saveToFileSystem(response) {

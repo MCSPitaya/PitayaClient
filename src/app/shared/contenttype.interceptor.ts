@@ -12,17 +12,22 @@ export class ContentTypeInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  exclude = /^\/api\/case\/[0-9]+\/file/;
+  exclude = [/^\/api\/case\/[0-9]+\/file$/, /^\/api\/file\/[0-9]+\/content$/];
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(this.exclude.test(request.url)){
-      return next.handle(request);
-    }
-    const req = request.clone({
-      headers: request.headers.set('Content-Type', 'application/json')
-    })
+    let skip = false;
+    this.exclude.forEach((ex) => {
+      if(ex.test(request.url)){
+        skip = true;
+      }
+    });
 
-    //console.log(request);
-    return next.handle(req);
+    if(!skip){
+      const req = request.clone({
+        headers: request.headers.set('Content-Type', 'application/json')
+      })
+      return next.handle(req);
+    }
+    return next.handle(request);
   }
 }
