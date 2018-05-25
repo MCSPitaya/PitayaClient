@@ -29,11 +29,9 @@ export class DocumentService {
     }
 
     private saveToFileSystem(response) {
-      console.log(response);
       const contentDispositionHeader: string = response.headers.get('Content-Disposition');
       const parts: string[] = contentDispositionHeader.split(';');
       const filename = parts[1].split('=')[1];
-      console.log(filename);
       saveAs(response.body, filename);
     }
 }
