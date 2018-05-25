@@ -64,16 +64,17 @@ The actual rendered columns are set as a property on the row definition" -->
     <mat-cell *matCellDef="let element"> {{element.modDat | date:'medium'}} </mat-cell>
   </ng-container>
 
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="download">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Download </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button type="button" class="btn btn-outline-warning btn-sm" (click)="saveFile(element.id)">Download</button>
+    </mat-cell>
+  </ng-container>
+
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"
   (click)="selection.toggle(row)">
   </mat-row>
 </mat-table>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-10">
-      <button (click)="saveFile()">Export</button>
-    </div>
-  </div>
-</div>

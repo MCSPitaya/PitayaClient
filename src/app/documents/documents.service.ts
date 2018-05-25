@@ -20,20 +20,20 @@ export class DocumentService {
       return this.http.get<Document>(this.urlDocument + '/' + id);
     }
 
-    saveFile() {
+    saveFile(file_id: number) {
       const headers = { 'Accept': '*/*'}
-      this.http.get('/api/file/1/content', { headers: headers, observe: 'response', responseType: 'blob' })
+      this.http.get('/api/file/' + file_id + '/content', { headers: headers, observe: 'response', responseType: 'blob' })
         .subscribe(resp => {
           this.saveToFileSystem(resp);
         });
     }
 
     private saveToFileSystem(response) {
+      console.log(response);
       const contentDispositionHeader: string = response.headers.get('Content-Disposition');
       const parts: string[] = contentDispositionHeader.split(';');
       const filename = parts[1].split('=')[1];
       console.log(filename);
-      const blob = new Blob([response._body], { type: 'jpg' });
-      saveAs(blob, filename);
+      saveAs(response.body, filename);
     }
 }

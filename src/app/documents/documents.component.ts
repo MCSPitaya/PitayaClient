@@ -52,8 +52,8 @@ export class DocumentsComponent implements OnInit{
     }
 
 
-  saveFile() {
-    this.documentService.saveFile();
+  saveFile(file_id) {
+    this.documentService.saveFile(file_id);
   }
 
   readDocuments() {
@@ -95,7 +95,7 @@ export class DocumentsComponent implements OnInit{
 
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['name', 'revisions', 'creDat', 'modDat'];
+  displayedColumns = ['name', 'revisions', 'creDat', 'modDat', 'download'];
 
    applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
