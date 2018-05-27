@@ -36,9 +36,8 @@ export class ModalCreateCase {
         .subscribe((data: any) => {console.log(data)} , err => console.log(err));
       this.dialogRef.close();
       this.refreshPage();
-
   }
   refreshPage(){
-    this.router.navigate(['/cases'])
+    this.router.navigate(['/cases']);
   }
 }
