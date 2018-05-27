@@ -6,7 +6,6 @@ mat-card-footer{
 
 mat-card-actions{
 	margin-left: 50px;
+	width: 180px;
 }
-mat-raised-button{
-	background-color:green;
-}
+

@@ -88,7 +88,8 @@ export class CasesComponent implements OnInit {
     let dialogRef = this.dialog.open(ModalCaseDetails, {
       width: '450px',
       height: 'auto',
-      data: {caseDet: this.casesDet.find((a) => a.id === id)}
+      data: {caseDet: this.casesDet.find((a) => a.id === id),
+             courts: this.courts }
       });
 
   }

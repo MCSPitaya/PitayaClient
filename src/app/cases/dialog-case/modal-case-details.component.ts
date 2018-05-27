@@ -13,12 +13,18 @@ import { ModalCreateCase } from '../create-case/modal-create-case.component';
 export class ModalCaseDetails {
 
   public caseDet;
+  public courts;
+  public edit: boolean;
+  public model: any[];
+
   constructor(
     private router : Router ,
     public dialogRef: MatDialogRef<ModalCreateCase>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
       this.caseDet=data['caseDet'];
+      this.courts = data['courts'];
+      this.edit = true;
    }
 
   navigateToDocumentsPage(){
@@ -28,5 +34,9 @@ export class ModalCaseDetails {
   onNoClick(): void {
 
   }
+  enableForm(){
+    this.edit = !this.edit ;
+  }
+
 
 }
